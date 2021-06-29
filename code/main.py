@@ -15,6 +15,8 @@ def restartcheck():
         print("")
         return False
 
+#Define maxareacheck function. Takes in the directory path to 'maxarea.txt'.
+#Checks if 'maxarea.txt' contents are of numerical type. If not, sets to default value of 4.
 def maxareacheck(maxarea_dir):
     """Check if the contents of the 'maxarea.txt' file can be converted into float.
 If not, overwrite the contents of 'maxarea.txt' to the default value of 4"""
@@ -69,81 +71,76 @@ def mainloop():
     #restartcheck one last time
     return restartcheck()
 
-#Declare login, user and admin menu loop bools before starting main while loop 
+#Declare login and menu loop bools before starting main while loop 
 loginloop = True
-adminloop = True
-userloop = True
+menuloop = True
 
 #Call mainloop until username is empty (user has selected to quit)
 while (True):
     #Call logincheck until the user has logged in
     while(loginloop):
         if (credentialchecker.logincheck()):
-            ##When user is logged in, set user and admin menu loops to True
+            #When user is logged in, set menuloop to True
             loginloop = False
-            adminloop = True
-            userloop = True
+            menuloop = True
 
     #If username is set to "", break the loop as the user has selected to quit
     if(credentialchecker.username == ""):
         break
 
-    #If the current userpermissions are "admin", run admin code while adminloop True
-    if (credentialchecker.userpermissions == "admin"):
-        while (adminloop):
-            admininput = input("What would you like to do?: \nSet Max Area (M)   Calculate Area (C)   Log Out (L)\n").upper()
+    while (menuloop):
+        #If the current userpermissions are "admin", run admin code while menuloop True
+        if (credentialchecker.userpermissions == "admin"):
+                admininput = input("What would you like to do?: \nSet Max Area (M)   Calculate Area (C)   Log Out (L)\n").upper()
 
-            #If admin enters "M", get new max area and perform error checks before setting it
-            if (admininput == "M"):
-                #Get new max area input from admin user
-                newarea = input("\nPlease enter a new maximum area size: ")
+                #If admin enters "M", get new max area and perform error checks before setting it
+                if (admininput == "M"):
+                    #Get new max area input from admin user
+                    newarea = input("\nPlease enter a new maximum area size: ")
 
-                #If newarea is a valid numerical type, write it to 'maxarea.txt'
-                #If not, print an error message
-                if(newarea.isdigit()):
-                    open(datamanager.get_maxarea(), "w").write(newarea)
-                    print("Max area has been set to " + newarea + "\n")
-                else:
-                    print("Max area must be set to a valid number.\n")
+                    #If newarea is a valid numerical type, write it to 'maxarea.txt'
+                    #If not, print an error message
+                    if(newarea.isdigit()):
+                        open(datamanager.get_maxarea(), "w").write(newarea)
+                        print("Max area has been set to " + newarea + "\n")
+                    else:
+                        print("Max area must be set to a valid number.\n")
 
-            #If admin enters "C", set adminloop false to exit admin menu and continue with area calculator code
-            if (admininput == "C"):
-                print("")
-                adminloop = False
-            
-            #If admin enters "L", set adminloop false to exit admin menu, and loginloop true to send user back to login prompt
-            if (admininput == "L"):
-                print("Logging out...\n")
-                adminloop = False
-                loginloop = True
+                #If admin enters "C", set adminloop false to exit admin menu and continue with area calculator code
+                if (admininput == "C"):
+                    print("")
+                    menuloop = False
+                
+                #If admin enters "L", set menuloop false to exit admin menu, and loginloop true to send user back to login prompt
+                if (admininput == "L"):
+                    print("Logging out...\n")
+                    menuloop = False
+                    loginloop = True
 
-    #If the current userpermissions are "user", run user code while userloop True
-    if (credentialchecker.userpermissions == "user"):
-        while (userloop):
-            userinput = input("What would you like to do?: \nCalculate Area (C)   Log Out (L)\n").upper()
-            
-            #If user enters "C", set userloop false to exit user menu and continue with area calculator code
-            if (userinput == "C"):
-                print("")
-                userloop = False
+        #If the current userpermissions are "user", run user code while menuloop True
+        if (credentialchecker.userpermissions == "user"):
+                userinput = input("What would you like to do?: \nCalculate Area (C)   Log Out (L)\n").upper()
+                
+                #If user enters "C", set userloop false to exit user menu and continue with area calculator code
+                if (userinput == "C"):
+                    print("")
+                    userloop = False
 
-            #If user enters "L", set userloop false to exit user menu, and loginloop true to send user back to login prompt
-            if (userinput == "L"):
-                print("Logging out...\n")
-                userloop = False
-                loginloop = True
-
+                #If user enters "L", set menuloop false to exit user menu, and loginloop true to send user back to login prompt
+                if (userinput == "L"):
+                    print("Logging out...\n")
+                    menuloop = False
+                    loginloop = True
+                 
     #If looplogin has been set to true before mainloop function, ignore mainloop function and continue to rerun logincheck function
     if (loginloop):
        continue
 
     #mainloop function always returns the results of restartcheck function
     if not mainloop():
-        #If restartcheck returns False, set user and admin selection loop bools to True
-        adminloop = True
-        userloop = True
+        #If restartcheck returns False, set menuloop to True
+        menuloop = True
 
         #If user is a guest, set the loginloop to true to send user back to login prompt, ignoring user and admin menus.
         if(credentialchecker.userpermissions == "guest"):
             loginloop = True
-
