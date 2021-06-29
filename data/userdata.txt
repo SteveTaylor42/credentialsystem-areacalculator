@@ -1,0 +1,4 @@
+admin BIGPASS! admin
+steve pass123 user
+newuser lolol user
+newuser2 password user
