@@ -1,6 +1,6 @@
 #Import local 'datamanager' module to allow '\data' path acquisition
 import datamanager
-#Import Regular Expression ('re') module to allow precise string checking
+#Import Regular Expression ('re') module to allow precise string formatting
 import re
 
 #Login Functions##############################################################
@@ -31,7 +31,7 @@ Returns True or False"""
 
 def existingusercheck(userdata):
 		"""Checks if the input username is already in the userdata file, and if user entry is in valid format.
-If valid, returns username, password, user permissions, and user area."""
+If valid, returns username, password, and user permissions."""
 		for line in userdata:
 			if (len(line) > 1 and line.split()[0] == username):
 				if (len(line.split()) == 3):
