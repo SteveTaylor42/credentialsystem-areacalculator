@@ -1,4 +1,4 @@
-# credentialsystem-areacalculator
+# Credential System (with Area Calculator)
 
 A credential storage and checking system (with user permissions) which contains a room area calculator.
 User menu options vary depending on current user credentials, and program loops until user specifies to exit.
