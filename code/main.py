@@ -106,7 +106,7 @@ while (True):
                     else:
                         print("Max area must be set to a valid number.\n")
 
-                #If admin enters "C", set adminloop false to exit admin menu and continue with area calculator code
+                #If admin enters "C", set menuloop false to exit admin menu and continue with area calculator code
                 if (admininput == "C"):
                     print("")
                     menuloop = False
@@ -121,10 +121,10 @@ while (True):
         if (credentialchecker.userpermissions == "user"):
                 userinput = input("What would you like to do?: \nCalculate Area (C)   Log Out (L)\n").upper()
                 
-                #If user enters "C", set userloop false to exit user menu and continue with area calculator code
+                #If user enters "C", set menuloop false to exit user menu and continue with area calculator code
                 if (userinput == "C"):
                     print("")
-                    userloop = False
+                    menuloop = False
 
                 #If user enters "L", set menuloop false to exit user menu, and loginloop true to send user back to login prompt
                 if (userinput == "L"):
